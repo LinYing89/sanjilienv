@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="TOP_CENTER" prefHeight="704.0" prefWidth="1280.0" styleClass="background" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zhibo.sanjilienv.controller.MainController">
+   <children>
+      <Label alignment="TOP_CENTER" styleClass="label-title" text="环 境 监 测 数 据">
+         <VBox.margin>
+            <Insets top="30.0" />
+         </VBox.margin>
+      </Label>
+      <Label fx:id="labelTime" styleClass="label-time" text="现在时间是:yyyy年MM月dd日hh时mm分ss秒">
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Label>
+      <GridPane alignment="TOP_CENTER" hgap="20.0" vgap="15.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="290.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="290.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="SO2:" />
+            <Label text="NOx:" GridPane.rowIndex="1" />
+            <Label text="O2:" GridPane.rowIndex="2" />
+            <Label text="烟尘:" GridPane.rowIndex="3" />
+            <Label text="烟温:" GridPane.rowIndex="4" />
+            <Label text="静压:" GridPane.rowIndex="5" />
+            <Label text="流量:" GridPane.rowIndex="6" />
+            <Label text="流速:" GridPane.columnIndex="2" />
+            <Label text="湿度:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label text="HCl:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Label text="CO:" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Label text="CO2:" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Label text="炉温:" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <Label fx:id="labelSO2" text="0.050mg/m³" GridPane.columnIndex="1" />
+            <Label fx:id="labelNOx" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="labelO2" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="labelDust" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="labelDustTem" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label fx:id="labelPressure" text="0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label fx:id="labelFlow" text="0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label fx:id="labelSpeed" text="0" GridPane.columnIndex="3" />
+            <Label fx:id="labelHum" text="2.980%" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Label fx:id="labelHCI" text="0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <Label fx:id="labelCO" text="7.545mg/m³" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <Label fx:id="labelCO2" text="0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <Label fx:id="labelOvenTem" text="0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+         </children>
+         <padding>
+            <Insets left="8.0" top="8.0" />
+         </padding>
+         <VBox.margin>
+            <Insets top="30.0" />
+         </VBox.margin>
+      </GridPane>
+   </children>
+</VBox>

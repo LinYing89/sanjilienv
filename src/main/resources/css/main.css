@@ -1,0 +1,32 @@
+.background {
+    -fx-background-color: black;
+}
+
+.label {
+    -fx-font-size: 28pt;
+    -fx-font-weight: bold;
+    -fx-font-family: "黑体";
+    -fx-text-fill: lime;
+    -fx-opacity: 1;
+}
+
+.label-title{
+    -fx-font-size: 38pt;
+        -fx-font-family: "黑体";
+        -fx-text-fill: yellow;
+        -fx-opacity: 1;
+}
+
+.label-time{
+    -fx-font-size: 28pt;
+        -fx-font-family: "黑体";
+        -fx-text-fill: red;
+        -fx-opacity: 1;
+}
+
+.label-bright {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    <bean class="com.zhibo.sanjilienv.data.Config">
+        <!-- 区域人数界面显示时间 -->
+        <property name="personnelShowTime" value="5" />
+        <!-- 环境数据界面显示时间 -->
+        <property name="environmentShowTime" value="600" />
+        <!-- 程序界面隐藏时间 -->
+        <property name="appHideTime" value="7" />
+        <!-- 二道门数据库ip地址 -->
+        <property name="databaseServerName" value="192.168.4.49" />
+        <!-- 环境数据服务器端口号 -->
+        <property name="serverPort" value="6006" />
+
+        <property name="so2Config" ref="so2Config" />
+        <property name="noxConfig" ref="noxConfig" />
+        <property name="o2Config" ref="o2Config" />
+        <property name="dustConfig" ref="dustConfig" />
+        <property name="dustTemConfig" ref="dustTemConfig" />
+        <property name="pressureConfig" ref="pressureConfig" />
+        <property name="flowConfig" ref="flowConfig" />
+        <property name="speedConfig" ref="speedConfig" />
+        <property name="humConfig" ref="humConfig" />
+        <property name="hciConfig" ref="hciConfig" />
+        <property name="coConfig" ref="coConfig" />
+        <property name="co2Config" ref="co2Config" />
+        <property name="ovenTemConfig" ref="ovenTemConfig" />
+    </bean>
+
+    <!-- so2配置 -->
+    <bean id="so2Config" class="com.zhibo.sanjilienv.data.EnvDataConfig">
+        <!-- 系数 -->
+        <property name="coefficient" value="0.001" />
+        <!-- 输出格式, 没有小数部分则为0, 如果有小数部分, 则有几位小数, 就在小数点后输入几个0
+            没有小数时的格式 <property name="format" value="0" />
+            有3位小数时的格式 <property name="format" value="0.000" />
+         -->
+        <property name="format" value="0.000" />
+        <!-- 单位 -->
+        <property name="unit" value="mg/m³" />
+    </bean>
+
+    <!-- nox配置 -->
+    <bean id="noxConfig" class="com.zhibo.sanjilienv.data.EnvDataConfig">
+        <!-- 系数 -->
+        <property name="coefficient" value="0.001" />
+        <!-- 输出格式 -->
+        <property name="format" value="0.000" />
+        <!-- 单位 -->
+        <property name="unit" value="mg/m³" />
+    </bean>
+
+    <!-- o2配置 -->
+    <bean id="o2Config" class="com.zhibo.sanjilienv.data.EnvDataConfig">
+        <!-- 系数 -->
+        <property name="coefficient" value="0.001" />
+        <!-- 输出格式 -->
+        <property name="format" value="0.000" />
+        <!-- 单位 -->
+        <property name="unit" value="%" />
+    </bean>
+
+    <!-- 烟尘配置 -->
+    <bean id="dustConfig" class="com.zhibo.sanjilienv.data.EnvDataConfig">
+        <!-- 系数 -->
+        <property name="coefficient" value="0.001" />
+        <!-- 输出格式 -->
+        <property name="format" value="0.000" />
+        <!-- 单位 -->
+        <property name="unit" value="%" />
+    </bean>
+
+    <!-- 烟温配置 -->
+    <bean id="dustTemConfig" class="com.zhibo.sanjilienv.data.EnvDataConfig">
+        <!-- 系数 -->
+        <property name="coefficient" value="0.001" />
+        <!-- 输出格式 -->
+        <property name="format" value="0.000" />
+        <!-- 单位 -->
+        <property name="unit" value="%" />
+    </bean>
+
+    <!-- 静压配置 -->
+    <bean id="pressureConfig" class="com.zhibo.sanjilienv.data.EnvDataConfig">
+        <!-- 系数 -->
+        <property name="coefficient" value="0.001" />
+        <!-- 输出格式 -->
+        <property name="format" value="0.000" />
+        <!-- 单位 -->
+        <property name="unit" value="%" />
+    </bean>
+
+    <!-- 流量配置 -->
+    <bean id="flowConfig" class="com.zhibo.sanjilienv.data.EnvDataConfig">
+        <!-- 系数 -->
+        <property name="coefficient" value="0.001" />
+        <!-- 输出格式 -->
+        <property name="format" value="0.000" />
+        <!-- 单位 -->
+        <property name="unit" value="m³/s" />
+    </bean>
+
+    <!-- 流速配置 -->
+    <bean id="speedConfig" class="com.zhibo.sanjilienv.data.EnvDataConfig">
+        <!-- 系数 -->
+        <property name="coefficient" value="0.001" />
+        <!-- 输出格式 -->
+        <property name="format" value="0.000" />
+        <!-- 单位 -->
+        <property name="unit" value="%" />
+    </bean>
+
+    <!-- 湿度配置 -->
+    <bean id="humConfig" class="com.zhibo.sanjilienv.data.EnvDataConfig">
+        <!-- 系数 -->
+        <property name="coefficient" value="0.001" />
+        <!-- 输出格式 -->
+        <property name="format" value="0.000" />
+        <!-- 单位 -->
+        <property name="unit" value="%" />
+    </bean>
+
+    <!-- HCl配置 -->
+    <bean id="hciConfig" class="com.zhibo.sanjilienv.data.EnvDataConfig">
+        <!-- 系数 -->
+        <property name="coefficient" value="0.001" />
+        <!-- 输出格式 -->
+        <property name="format" value="0.000" />
+        <!-- 单位 -->
+        <property name="unit" value="mg/m³" />
+    </bean>
+
+    <!-- CO配置 -->
+    <bean id="coConfig" class="com.zhibo.sanjilienv.data.EnvDataConfig">
+        <!-- 系数 -->
+        <property name="coefficient" value="0.001" />
+        <!-- 输出格式 -->
+        <property name="format" value="0.000" />
+        <!-- 单位 -->
+        <property name="unit" value="mg/m³" />
+    </bean>
+
+    <!-- CO2配置 -->
+    <bean id="co2Config" class="com.zhibo.sanjilienv.data.EnvDataConfig">
+        <!-- 系数 -->
+        <property name="coefficient" value="0.001" />
+        <!-- 输出格式 -->
+        <property name="format" value="0.000" />
+        <!-- 单位 -->
+        <property name="unit" value="%" />
+    </bean>
+
+    <!-- 炉温配置 -->
+    <bean id="ovenTemConfig" class="com.zhibo.sanjilienv.data.EnvDataConfig">
+        <!-- 系数 -->
+        <property name="coefficient" value="0.001" />
+        <!-- 输出格式 -->
+        <property name="format" value="0.000" />
+        <!-- 单位 -->
+        <property name="unit" value="%" />
+    </bean>
+</beans>
