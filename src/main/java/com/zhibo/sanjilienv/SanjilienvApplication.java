@@ -23,7 +23,7 @@ public class SanjilienvApplication extends AbstractJavaFxApplicationSupport {
 		launch(SanjilienvApplication.class, PersonnelCount.class, new CustomSplash(), args);
 
         //未捕获的异常, 统一捕获
-        Thread.setDefaultUncaughtExceptionHandler((t, e) -> logger.error(e.getMessage()));
+        Thread.setDefaultUncaughtExceptionHandler((t, e) -> logger.error("main" ,e));
     }
 
     @Override

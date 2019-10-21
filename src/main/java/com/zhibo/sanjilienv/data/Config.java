@@ -17,6 +17,9 @@ public class Config {
 
     private int serverPort = 6006;
 
+    private String telecomServerName = "61.177.174.53";
+    private int telecomServerPort = 18082;
+
     private EnvDataConfig so2Config;
     private EnvDataConfig noxConfig;
     private EnvDataConfig o2Config;
@@ -69,6 +72,22 @@ public class Config {
 
     public void setServerPort(int serverPort) {
         this.serverPort = serverPort;
+    }
+
+    public String getTelecomServerName() {
+        return telecomServerName;
+    }
+
+    public void setTelecomServerName(String telecomServerName) {
+        this.telecomServerName = telecomServerName;
+    }
+
+    public int getTelecomServerPort() {
+        return telecomServerPort;
+    }
+
+    public void setTelecomServerPort(int telecomServerPort) {
+        this.telecomServerPort = telecomServerPort;
     }
 
     public EnvDataConfig getSo2Config() {

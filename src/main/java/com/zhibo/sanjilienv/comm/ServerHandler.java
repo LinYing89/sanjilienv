@@ -81,7 +81,11 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
                 // 解析子报文
                 // 采集终端编号
                 int index = 1;
-                //int collectorCode = subOrder[index];
+                int bus = subOrder[0];
+                int collectorCode = subOrder[index];
+//                if(bus != 1 || collectorCode != 1){
+//                    continue;
+//                }
                 // 数据长度
                 index += 3;
                 int dataLength = Util.bytesToInt(new byte[]{subOrder[index], subOrder[index + 1]});
@@ -92,46 +96,47 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
                 if (byData.length != dataLength) {
                     continue;
                 }
+                Client.sendData(Arrays.copyOfRange(byData, 0, byData.length - 2));
 
                 Environment environment = MainController.environment;
                 int dataIndex = 0;
-                double so2 = Util.bytesToInt(new byte[]{byData[dataIndex], byData[dataIndex + 1], byData[dataIndex + 2], byData[dataIndex + 3]});
+                double so2 = Util.bytes2Float(new byte[]{byData[dataIndex], byData[dataIndex + 1], byData[dataIndex + 2], byData[dataIndex + 3]});
                 environment.setSo2(so2 * config.getSo2Config().getCoefficient());
                 dataIndex += 4;
-                double nox = Util.bytesToInt(new byte[]{byData[dataIndex], byData[dataIndex + 1], byData[dataIndex + 2], byData[dataIndex + 3]});
+                double nox = Util.bytes2Float(new byte[]{byData[dataIndex], byData[dataIndex + 1], byData[dataIndex + 2], byData[dataIndex + 3]});
                 environment.setNox(nox * config.getNoxConfig().getCoefficient());
                 dataIndex += 4;
-                double o2 = Util.bytesToInt(new byte[]{byData[dataIndex], byData[dataIndex + 1], byData[dataIndex + 2], byData[dataIndex + 3]});
+                double o2 = Util.bytes2Float(new byte[]{byData[dataIndex], byData[dataIndex + 1], byData[dataIndex + 2], byData[dataIndex + 3]});
                 environment.setO2(o2 * config.getO2Config().getCoefficient());
                 dataIndex += 4;
-                double dust = Util.bytesToInt(new byte[]{byData[dataIndex], byData[dataIndex + 1], byData[dataIndex + 2], byData[dataIndex + 3]});
+                double dust = Util.bytes2Float(new byte[]{byData[dataIndex], byData[dataIndex + 1], byData[dataIndex + 2], byData[dataIndex + 3]});
                 environment.setDust(dust * config.getDustConfig().getCoefficient());
                 dataIndex += 4;
-                double dustTem = Util.bytesToInt(new byte[]{byData[dataIndex], byData[dataIndex + 1], byData[dataIndex + 2], byData[dataIndex + 3]});
+                double dustTem = Util.bytes2Float(new byte[]{byData[dataIndex], byData[dataIndex + 1], byData[dataIndex + 2], byData[dataIndex + 3]});
                 environment.setDustTem(dustTem * config.getDustTemConfig().getCoefficient());
                 dataIndex += 4;
-                double pressure = Util.bytesToInt(new byte[]{byData[dataIndex], byData[dataIndex + 1], byData[dataIndex + 2], byData[dataIndex + 3]});
+                double pressure = Util.bytes2Float(new byte[]{byData[dataIndex], byData[dataIndex + 1], byData[dataIndex + 2], byData[dataIndex + 3]});
                 environment.setPressure(pressure * config.getPressureConfig().getCoefficient());
                 dataIndex += 4;
-                double flow = Util.bytesToInt(new byte[]{byData[dataIndex], byData[dataIndex + 1], byData[dataIndex + 2], byData[dataIndex + 3]});
+                double flow = Util.bytes2Float(new byte[]{byData[dataIndex], byData[dataIndex + 1], byData[dataIndex + 2], byData[dataIndex + 3]});
                 environment.setFlow(flow * config.getFlowConfig().getCoefficient());
                 dataIndex += 4;
-                double speed = Util.bytesToInt(new byte[]{byData[dataIndex], byData[dataIndex + 1], byData[dataIndex + 2], byData[dataIndex + 3]});
+                double speed = Util.bytes2Float(new byte[]{byData[dataIndex], byData[dataIndex + 1], byData[dataIndex + 2], byData[dataIndex + 3]});
                 environment.setSpeed(speed * config.getSpeedConfig().getCoefficient());
                 dataIndex += 4;
-                double hum = Util.bytesToInt(new byte[]{byData[dataIndex], byData[dataIndex + 1], byData[dataIndex + 2], byData[dataIndex + 3]});
+                double hum = Util.bytes2Float(new byte[]{byData[dataIndex], byData[dataIndex + 1], byData[dataIndex + 2], byData[dataIndex + 3]});
                 environment.setHum(hum * config.getHumConfig().getCoefficient());
                 dataIndex += 4;
-                double hci = Util.bytesToInt(new byte[]{byData[dataIndex], byData[dataIndex + 1], byData[dataIndex + 2], byData[dataIndex + 3]});
+                double hci = Util.bytes2Float(new byte[]{byData[dataIndex], byData[dataIndex + 1], byData[dataIndex + 2], byData[dataIndex + 3]});
                 environment.setHci(hci * config.getHciConfig().getCoefficient());
                 dataIndex += 4;
-                double co = Util.bytesToInt(new byte[]{byData[dataIndex], byData[dataIndex + 1], byData[dataIndex + 2], byData[dataIndex + 3]});
+                double co = Util.bytes2Float(new byte[]{byData[dataIndex], byData[dataIndex + 1], byData[dataIndex + 2], byData[dataIndex + 3]});
                 environment.setCo(co * config.getCoConfig().getCoefficient());
                 dataIndex += 4;
-                double co2 = Util.bytesToInt(new byte[]{byData[dataIndex], byData[dataIndex + 1], byData[dataIndex + 2], byData[dataIndex + 3]});
+                double co2 = Util.bytes2Float(new byte[]{byData[dataIndex], byData[dataIndex + 1], byData[dataIndex + 2], byData[dataIndex + 3]});
                 environment.setCo2(co2 * config.getCo2Config().getCoefficient());
                 dataIndex += 4;
-                double ovenTem = Util.bytesToInt(new byte[]{byData[dataIndex], byData[dataIndex + 1], byData[dataIndex + 2], byData[dataIndex + 3]});
+                double ovenTem = Util.bytes2Float(new byte[]{byData[dataIndex], byData[dataIndex + 1], byData[dataIndex + 2], byData[dataIndex + 3]});
                 environment.setOvenTem(ovenTem * config.getOvenTemConfig().getCoefficient());
                 mainController.refresh();
             }

@@ -1,5 +1,6 @@
 package com.zhibo.sanjilienv;
 
+import com.zhibo.sanjilienv.comm.Client;
 import com.zhibo.sanjilienv.comm.MyServer;
 import com.zhibo.sanjilienv.data.Config;
 import com.zhibo.sanjilienv.enums.UISceneEnum;
@@ -30,6 +31,11 @@ public class MyApplicationRunner implements ApplicationRunner {
             MyServer.PORT = config.getServerPort();
             MyServer myServer = new MyServer();
             myServer.run();
+
+            new Thread(() -> {
+                Client client = new Client();
+                client.start();
+            }).start();
 
             ReadDatabase readDatabase = new ReadDatabase();
             readDatabase.start();

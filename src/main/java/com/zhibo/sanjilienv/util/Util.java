@@ -86,9 +86,21 @@ public class Util {
         return value;
     }
 
+    public static float bytes2Float(byte[] arr){
+        int value = bytesToInt(arr);
+        return Float.intBitsToFloat(value);
+    }
+
+    public static String formatValue(int value){
+        //固定28个长度
+        return String.format("%-28s", value);
+    }
+
     public static void main(String[] args) {
-        double f = 01234.36;
-        DecimalFormat df = new DecimalFormat("0");
-        System.out.println(df.format(f));
+//        byte[] by = new byte[]{0x41, 0x26, 0x00, 0x00};
+//        float d = bytes2Float(by);
+        int a = 23;
+        String value = String.format("%-5s", a);
+        System.out.println("a" + value + "a");
     }
 }

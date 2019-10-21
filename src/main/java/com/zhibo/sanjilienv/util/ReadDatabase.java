@@ -26,8 +26,8 @@ public class ReadDatabase extends Thread{
     private static final String USER = "sa";
     private static final String PASSWORD = "1234";
 
-    public static Map<Integer, Integer> mapAreaPeople = new HashMap<>();
-    public static Map<Integer, Integer> mapPeopleDept = new HashMap<>();
+    private static Map<Integer, Integer> mapAreaPeople = new HashMap<>();
+    private static Map<Integer, Integer> mapPeopleDept = new HashMap<>();
 
     private Config config = SpringUtil.getBean(Config.class);
 
@@ -38,7 +38,7 @@ public class ReadDatabase extends Thread{
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            logger.error("connectDb: " + e.getMessage());
+            logger.error("connectDb: ", e);
         }
     }
 
@@ -46,7 +46,7 @@ public class ReadDatabase extends Thread{
         Connection conn = null;
         Statement stmt = null;
         try {
-            conn = (Connection) DriverManager.getConnection(URL, USER, PASSWORD);
+            conn = DriverManager.getConnection(URL, USER, PASSWORD);
             stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("select PersonnelID, DepartmentID from Personnel");
             while (rs.next()) {
@@ -55,9 +55,9 @@ public class ReadDatabase extends Thread{
                 mapPeopleDept.put(PersonnelID, deptId);
             }
             rs.close();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            logger.error("queryPersopnnel: " + e.getMessage());
+            logger.error("queryPersopnnel: ", e);
         } finally {
             try {
                 if (null != stmt) {
@@ -67,6 +67,7 @@ public class ReadDatabase extends Thread{
                     conn.close();
                 }
             } catch (SQLException e) {
+                logger.error("queryPersopnnel finally: ", e);
                 e.printStackTrace();
             }
         }
@@ -76,11 +77,11 @@ public class ReadDatabase extends Thread{
         return mapPeopleDept.get(personId);
     }
 
-    public void query() {
+    private void query() {
         Connection conn = null;
         Statement stmt = null;
         try {
-            conn = (Connection) DriverManager.getConnection(URL, USER, PASSWORD);
+            conn = DriverManager.getConnection(URL, USER, PASSWORD);
             stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("select PersonnelID from " + tableName + " where IsEntry = 1");
             while (rs.next()) {
@@ -99,18 +100,19 @@ public class ReadDatabase extends Thread{
             writeToFile();
             mapAreaPeople.clear();
             rs.close();
-        } catch (SQLException e) {
+        } catch (Exception e) {
+            logger.error("query catch : ", e);
             e.printStackTrace();
-            logger.error("query: " + e.getMessage());
         } finally {
             try {
-                if (null != conn) {
+                if (null != stmt) {
                     stmt.close();
                 }
                 if (null != conn) {
                     conn.close();
                 }
-            } catch (SQLException e) {
+            } catch (Exception e) {
+                logger.error("query finally: ", e);
                 e.printStackTrace();
             }
         }
@@ -140,11 +142,11 @@ public class ReadDatabase extends Thread{
         other = all - deptCount;
 
         String str1 = String.format("进入厂区人员: %s人\r\n", all);
-        String str2 = String.format("反应: %s   \t  \t\t电仪: %s\r\n", getValue(13), getValue(26));
-        String str3 = String.format("分离: %s   \t  \t\t仓库: %s\r\n", getValue(14), getValue(24));
-        String str4 = String.format("动力: %s   \t  \t\t管理: %s\r\n", getValue(22), getValue(27));
-        String str5 = String.format("外协: %s   \t  \t\t综合: %s\r\n", getValue(32) + other, getValue(16));
-        String str6 = String.format("机修: %s   \t  \t\t来宾: %s\r\n", getValue(15), getValue(29));
+        String str2 = String.format("反应: %s\t电仪: %s\r\n", Util.formatValue(getValue(13)), getValue(26));
+        String str3 = String.format("分离: %s\t仓库: %s\r\n", Util.formatValue(getValue(14)), getValue(24));
+        String str4 = String.format("动力: %s\t管理: %s\r\n", Util.formatValue(getValue(22)), getValue(27));
+        String str5 = String.format("外协: %s\t综合: %s\r\n", Util.formatValue(getValue(32) + other), getValue(16));
+        String str6 = String.format("机修: %s\t来宾: %s\r\n", Util.formatValue(getValue(15)), getValue(29));
 //		String str7 = String.format("             其他: %s", other);
         OutputStreamWriter isr = null;
         BufferedWriter br = null;
@@ -162,9 +164,9 @@ public class ReadDatabase extends Thread{
             br.write(sb.toString());
             br.flush();
             logger.info("write to file success: " + sb.toString());
-        } catch (IOException e) {
+        } catch (Exception e) {
+            logger.error("writeToFile: ", e);
             e.printStackTrace();
-            logger.error("writeToFile: " + e.getMessage());
         } finally {
             try {
                 if (null != br) {
@@ -173,8 +175,8 @@ public class ReadDatabase extends Thread{
                 if (null != isr) {
                     isr.close();
                 }
-            } catch (IOException e) {
-                logger.error("文件关闭错误: " + e.getMessage());
+            } catch (Exception e) {
+                logger.error("文件关闭错误: ", e);
                 e.printStackTrace();
             }
         }
@@ -189,7 +191,49 @@ public class ReadDatabase extends Thread{
                 query();
                 Thread.sleep(1000);
             } catch (Exception e) {
-                logger.error(e.getMessage());
+                logger.error("run: ", e);
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        String str1 = String.format("进入厂区人员: %s人\r\n", 100);
+        String str2 = String.format("反应: %s\t电仪: %s\r\n", Util.formatValue(0), 11);
+        String str3 = String.format("分离: %s\t仓库: %s\r\n", Util.formatValue(1), 12);
+        String str4 = String.format("动力: %s\t管理: %s\r\n", Util.formatValue(33), 23);
+        String str5 = String.format("外协: %s\t综合: %s\r\n", Util.formatValue(409), 89);
+        String str6 = String.format("机修: %s\t来宾: %s\r\n", Util.formatValue(19), 279);
+//		String str7 = String.format("             其他: %s", other);
+        OutputStreamWriter isr = null;
+        BufferedWriter br = null;
+        try {
+            StringBuilder sb = new StringBuilder();
+            sb.append(str1);
+            sb.append(str2);
+            sb.append(str3);
+            sb.append(str4);
+            sb.append(str5);
+            sb.append(str6);
+
+            isr = new OutputStreamWriter(new FileOutputStream(".\\realtimeInfo.txt"), "GBK"); // 或GB2312,GB18030
+            br = new BufferedWriter(isr); // 用FileReader为参数创建一个缓冲输入流
+            br.write(sb.toString());
+            br.flush();
+            logger.info("write to file success: " + sb.toString());
+        } catch (Exception e) {
+            logger.error("writeToFile: ", e);
+            e.printStackTrace();
+        } finally {
+            try {
+                if (null != br) {
+                    br.close();
+                }
+                if (null != isr) {
+                    isr.close();
+                }
+            } catch (Exception e) {
+                logger.error("文件关闭错误: ", e);
                 e.printStackTrace();
             }
         }
